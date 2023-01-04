@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
@@ -26,7 +27,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     initSpeechState();
     super.initState();
   }
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void statusListener(String status) {
     _logEvent('Received listener status: $status, listening: ${speech.isListening}');
     setState(() {
-      lastStatus = '$status';
+      lastStatus = status;
     });
   }
 
@@ -123,14 +123,26 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  lastWords == '' && isEnabled ? "Konuşmaya başlamak için butona basın..." : lastWords,
-                  style: TextStyle(fontSize: 25),
+                Container(
+                  decoration: BoxDecoration(border: Border.all()),
+                  height: 200,
+                  child: SingleChildScrollView(
+                    reverse: true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          lastWords == '' && !isEnabled ? "Konuşmaya başlamak için butona basın..." : lastWords,
+                          style: const TextStyle(fontSize: 25),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                // Image.asset("lib/assets/download.png"),
+                Image.asset("lib/assets/download.png"),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: isEnabled ? Colors.blue : Colors.blue.shade200,
+                      backgroundColor: !isEnabled ? Colors.blue : Colors.blue.shade200,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),
                       ),
@@ -139,10 +151,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onPressed: () {
                       isEnabled = !isEnabled;
-                      if (isEnabled)
-                        stopListening();
-                      else
+                      if (isEnabled) {
                         startListening();
+                      } else {
+                        stopListening();
+                      }
                     },
                     child: const Icon(Icons.mic)),
               ],
