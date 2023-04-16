@@ -151,53 +151,57 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Be My Ears"),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15.0),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(40)),
-                  height: 200,
-                  padding: const EdgeInsets.all(15),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          !isEnabled ? "Konuşmaya başlamak için butona basın..." : lastWords,
-                          style: const TextStyle(fontSize: 25),
-                        ),
-                      ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text("Be My Ears"),
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15.0),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(40)),
+                    height: 200,
+                    padding: const EdgeInsets.all(15),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            !isEnabled ? "Konuşmaya başlamak için butona basın..." : lastWords,
+                            style: const TextStyle(fontSize: 25),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                if (lastWords != '' && isEnabled) showSign(),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: !isEnabled ? Colors.orange : Colors.orange.shade200,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
+                  if (lastWords != '' && isEnabled) showSign(),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: !isEnabled ? Colors.orange : Colors.orange.shade200,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        minimumSize: const Size(60, 60),
+                        padding: const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 8),
                       ),
-                      minimumSize: const Size(60, 60),
-                      padding: const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 8),
-                    ),
-                    onPressed: () {
-                      isEnabled = !isEnabled;
-                      if (isEnabled) {
-                        startListening();
-                      } else {
-                        stopListening();
-                      }
-                    },
-                    child: const Icon(Icons.mic)),
-              ],
+                      onPressed: () {
+                        isEnabled = !isEnabled;
+                        if (isEnabled) {
+                          startListening();
+                        } else {
+                          stopListening();
+                        }
+                      },
+                      child: const Icon(Icons.mic)),
+                ],
+              ),
             ),
           ),
         ),

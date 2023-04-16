@@ -86,69 +86,72 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: GestureDetector(
-        onTap: () {
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-        child: Scaffold(
-          backgroundColor: const Color.fromARGB(255, 242, 241, 236),
-          resizeToAvoidBottomInset: true,
-          body: SafeArea(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: SizedBox(
-                  height: 330,
-                  child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                    Image.asset(
-                      "lib/assets/logo.jpeg",
-                    ),
-                    // Text(
-                    //   "Be My Ears",
-                    //   style: TextStyle(color: Colors.orangeAccent, fontSize: 55, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-                    // ),
-                    TextFormField(
-                      controller: emailController,
-                      decoration: const InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30))), labelText: 'Email', hintText: 'Email Adresinizi Girin'),
-                    ),
-                    TextFormField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30))), labelText: 'Şifre', hintText: 'Şifrenizi Girin'),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Material(
+        child: GestureDetector(
+          onTap: () {
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Scaffold(
+            backgroundColor: const Color.fromARGB(255, 242, 241, 236),
+            resizeToAvoidBottomInset: true,
+            body: SafeArea(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: SizedBox(
+                    height: 330,
+                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+                      Image.asset(
+                        "lib/assets/logo.jpeg",
+                      ),
+                      // Text(
+                      //   "Be My Ears",
+                      //   style: TextStyle(color: Colors.orangeAccent, fontSize: 55, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+                      // ),
+                      TextFormField(
+                        controller: emailController,
+                        decoration: const InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30))), labelText: 'Email', hintText: 'Email Adresinizi Girin'),
+                      ),
+                      TextFormField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: const InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30))), labelText: 'Şifre', hintText: 'Şifrenizi Girin'),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              minimumSize: const Size(60, 45),
+                              padding: const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 8),
                             ),
-                            minimumSize: const Size(60, 45),
-                            padding: const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 8),
+                            child: const Text("Giriş Yap"),
+                            onPressed: () {
+                              login();
+                            },
                           ),
-                          child: const Text("Giriş Yap"),
-                          onPressed: () {
-                            login();
-                          },
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              minimumSize: const Size(60, 45),
+                              padding: const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 8),
                             ),
-                            minimumSize: const Size(60, 45),
-                            padding: const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 8),
+                            child: const Text("Kayıt ol"),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/registerScreen');
+                            },
                           ),
-                          child: const Text("Kayıt ol"),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/registerScreen');
-                          },
-                        ),
-                      ],
-                    ),
-                  ]),
+                        ],
+                      ),
+                    ]),
+                  ),
                 ),
               ),
             ),
